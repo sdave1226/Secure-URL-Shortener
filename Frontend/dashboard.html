@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Secure URL Shortener</title>
+    <title>ShortLink - URL Shortener</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -18,16 +18,30 @@
         </div>
     </nav>
 
-    <!-- Landing Page (Before Login) -->
-    <header class="hero" >
-        <h1>Shorten your links, expand your reach</h1>
-        <p>Create short, memorable links in seconds. Track clicks and manage your links all in one place.</p>
-        <div class="button-group">
-            <button class="btn primary" onclick="getdashboard()">Get Started</button>
-            <button class="btn secondary">How it works</button>
-        </div>
-    </header>
-
+    <main>
+        <section class="dashboard">
+            <h2>Dashboard</h2>
+            <div class="shorten-box">
+                <label for="url">Enter a long URL to create a shortened link</label>
+                <input type="text" id="url" placeholder="https://example.com/very/long/url">
+                <button id="shorten">Shorten</button>
+            </div>
+            <div id="message"></div>
+            <h3>Your shortened URLs</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Original URL</th>
+                        <th>Short URL</th>
+                        <th>Clicks</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="url-list"></tbody>
+            </table>
+        </section>
+    </main>
+    
     <!-- Footer -->
     <footer class="footer">
         <p>&copy; 2025 Secure URL Shortener. All rights reserved.</p>

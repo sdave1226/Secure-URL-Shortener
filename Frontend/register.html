@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Secure URL Shortener</title>
+    <title>Register - Secure URL Shortener</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -17,16 +17,31 @@
             <button class="btn register" onclick="window.location.href='register.html'">Register</button>
         </div>
     </nav>
+    
+    <div class="container">
+        <h2>Create an account</h2>
+        <p>Enter your details to create a Secure URL Shortener account</p>
+        <div class="form-box">
+            <h3>Register</h3>
+            <p>Sign up for a new Secure URL Shortener account</p>
+            <form>
+                <label>Name</label>
+                <input type="text" placeholder="John Doe" required>
+                
+                <label>Email</label>
+                <input type="email" placeholder="name@example.com" required>
+                
+                <label>Password</label>
+                <input type="password" placeholder="Enter your password" required>
 
-    <!-- Landing Page (Before Login) -->
-    <header class="hero" >
-        <h1>Shorten your links, expand your reach</h1>
-        <p>Create short, memorable links in seconds. Track clicks and manage your links all in one place.</p>
-        <div class="button-group">
-            <button class="btn primary" onclick="getdashboard()">Get Started</button>
-            <button class="btn secondary">How it works</button>
+                <label>Confirm Password</label>
+                <input type="password" placeholder="Confirm your password" required>
+                
+                <button type="submit">Create account</button>
+            </form>
+            <p>Already have an account? <a href="login.html">Sign in</a></p>
         </div>
-    </header>
+    </div>
 
     <!-- Footer -->
     <footer class="footer">
@@ -37,7 +52,5 @@
             <a href="#">Contact</a>
         </div>
     </footer>
-
-    <script src="script.js"></script>
 </body>
 </html>
