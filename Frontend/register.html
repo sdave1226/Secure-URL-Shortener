@@ -21,23 +21,23 @@
     <div class="container">
         <h2>Create an account</h2>
         <p>Enter your details to create a Secure URL Shortener account</p>
-        <div class="form-box">
+        <div class="form register-form">
             <h3>Register</h3>
             <p>Sign up for a new Secure URL Shortener account</p>
-            <form>
+            <form onsubmit="registerUser(event)">
                 <label>Name</label>
-                <input type="text" placeholder="John Doe" required>
+                <input type="text" id="name" placeholder="John Doe" required>
                 
                 <label>Email</label>
-                <input type="email" placeholder="name@example.com" required>
+                <input type="email" id="email" placeholder="name@example.com" required>
                 
                 <label>Password</label>
-                <input type="password" placeholder="Enter your password" required>
+                <input type="password" id="password" placeholder="Enter your password" required>
 
                 <label>Confirm Password</label>
-                <input type="password" placeholder="Confirm your password" required>
+                <input type="password" id="confirm-password" placeholder="Confirm your password" required>
                 
-                <button type="submit">Create account</button>
+                <button type="submit" onclick="registerUser(event)">Create account</button>
             </form>
             <p>Already have an account? <a href="login.html">Sign in</a></p>
         </div>
@@ -52,5 +52,7 @@
             <a href="#">Contact</a>
         </div>
     </footer>
+
+    <script src="script.js" defer></script>
 </body>
 </html>

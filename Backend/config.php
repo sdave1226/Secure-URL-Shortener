@@ -1,7 +1,7 @@
 <?php
 // config.php - Database connection
 $host = "localhost";
-$dbname = "url_shortener";
+$dbname = "micro-project";
 $username = "root";
 $password = "";
 
@@ -11,5 +11,4 @@ try {
 } catch (PDOException $e) {
     die("Database connection failed: " . $e->getMessage());
 }
-
 ?>

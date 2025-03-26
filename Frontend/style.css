@@ -2,7 +2,7 @@
 body {
     margin: 0;
     padding: 0;
-    font-family: Arial, sans-serif;
+    font-family: 'Poppins', sans-serif;;
     background-color: #121212;
     color: white;
     text-align: center;
@@ -11,7 +11,6 @@ html {
     margin: 0;
     padding: 0;
 }
-
 
 /* Navbar */
 .navbar {
@@ -88,12 +87,6 @@ html {
     color: black;
 }
 
-.secondary {
-    background: black;
-    color: white;
-    border: 1px solid white;
-}
-
 .btn:hover {
     opacity: 0.8;
 }
@@ -108,6 +101,24 @@ html {
 }
 
 .form-box {
+    background-color: #1e1e1e;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.1);
+    width: 350px;
+    text-align: left;
+}
+
+.register-form {
+    background-color: #1e1e1e;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.1);
+    width: 350px;
+    text-align: left;
+}
+
+.login-box {
     background-color: #1e1e1e;
     padding: 30px;
     border-radius: 10px;
@@ -199,22 +210,145 @@ a {
     text-decoration: underline;
 }
 
+/* Dashboard Container */
+.dashbaordcontainer {
+    width: 80%; /* Set width to match the image */
+    max-width: 1397px; /* Prevent excessive width on large screens */
+    margin: auto; /* Centering */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Dashboard Heading */
+.dashboard {
+    font-size: 26px;
+    margin-bottom: 20px;
+    font-family: 'Inter', sans-serif; /* Use Inter for headings */
+    font-weight: 700; /* Bold for emphasis */
+}
+
+/* Shorten Box */
 .shorten-box {
-    margin: 20px 0;
+    background: #111;
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid #333;
+    width: 80%;
+    max-width: 1397px;
+    margin-top: 20px;
+    text-align: center;
+    margin: 0 auto; /* Centers the box */
 }
-input {
+
+.shorten-text {
+    font-size: 26px;
+    margin-bottom: 20px;
+    font-family: 'Inter', sans-serif; /* Use Inter for headings */
+    font-weight: 700; /* Bold for emphasis */
+}
+
+.dashh2 {
+    font-size: 28px;
+    color: white;
+}
+
+.dashh4 {
+    font-size: 20px;
+    color: white;
+}
+
+.dashp {
+    font-size: 16px;
+    color: #bbb;
+}
+
+/* Input Field */
+/* Flex container for input and button */
+.input-container {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Space between input and button */
+}
+
+.dashinput {
+    width: 80%;
+    flex: 1;
     padding: 10px;
-    margin-right: 10px;
-    width: 60%;
+    border-radius: 8px;
+    border: 1px solid #444;
+    background: #222;
+    color: #ccc;
+    outline: none;
+    font-size: 14px;
+    margin-bottom: 10px;
+    gap: 10px;
 }
+
+.dashinput:focus {
+    border-color: #7e00ff;
+}
+
+/* Shorten Button */
+.dashbtn {
+    width: 20%;
+    background: #7e00ff;
+    color: white;
+    padding: 10px   ;
+    border: 1px solid #444;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    gap: 10px;
+}
+
+.dashbtn:hover {
+    background: #5d00cc;
+}
+
+/* Table Styling */
+.table-container {
+    width: 100%; /* Set width to match the image */
+    max-width: 1397px; /* Prevent excessive width on large screens */
+    margin: auto; /* Centering */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Table */
 table {
-    width: 100%;
-    border-collapse: collapse;
+    width: 91%;
+    padding: 20%;
+    max-width: 1397px; /* Adjust as per design */
+    border-radius: 10px;
+    border-collapse: collapse; /* Ensures proper spacing */
+    border: 1px solid #333;
+    text-align: center; /* Aligns content */
+    font-family: 'Segoe UI';
 }
-th, td {
-    padding: 10px;
-    border: 1px solid white;
+
+/* Table Head */
+table th {
+    background: #222;
+    font-weight: bold;
+    color: white;
+    padding: 12px;
+    border-bottom: 2px solid #444;
 }
-th {
-    background-color: #333;
+
+/* Table Cells */
+table td {
+    background: #111;
+    color: #bbb;
+    padding: 12px;
+    border-top: 1px solid #444;
+}
+
+/* Table Row Hover Effect */
+table tr:hover {
+    background: #222;
 }

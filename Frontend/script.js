@@ -1,124 +1,205 @@
 document.addEventListener("DOMContentLoaded", function () {
     checkLoginStatus();
+    setupEventListeners();
 
-    document.getElementById("shorten-btn").addEventListener("click", function () {
-        const longUrl = document.getElementById("long-url").value;
-
-        if (!longUrl) {
-            alert("Please enter a valid URL");
-            return;
-        }
-
-        const shortUrl = "short.link/" + Math.random().toString(36).substring(7);
-        const urlList = document.getElementById("url-list");
-        const row = document.createElement("tr");
-        row.innerHTML = `
-            <td><a href="${longUrl}" target="_blank">${longUrl}</a></td>
-            <td><a href="${shortUrl}" target="_blank">${shortUrl}</a></td>
-            <td>0</td>
-            <td><button class="delete-btn">Delete</button></td>
-        `;
-        urlList.appendChild(row);
-        document.getElementById("long-url").value = '';
-
-        row.querySelector(".delete-btn").addEventListener("click", function () {
-            row.remove();
-        });
-    });
+    const getStartedBtn = document.getElementById("get-started-btn");
+    if (getStartedBtn) {
+        getStartedBtn.addEventListener("click", getStarted);
+    }
 });
 
+// Check if user is logged in
 function checkLoginStatus() {
     const isLoggedIn = localStorage.getItem("loggedIn") === "true";
-
     if (isLoggedIn) {
-        document.getElementById("landing-page").classList.add("hidden");
-        document.getElementById("dashboard").classList.remove("hidden");
         document.getElementById("nav-auth").classList.add("hidden");
-        document.getElementById("nav-dashboard").classList.remove("hidden");
+        document.getElementById("dashboard").classList.remove("hidden");
     } else {
-        document.getElementById("landing-page").classList.remove("hidden");
-        document.getElementById("dashboard").classList.add("hidden");
         document.getElementById("nav-auth").classList.remove("hidden");
-        document.getElementById("nav-dashboard").classList.add("hidden");
-    }
-}
-
-function login() {
-    localStorage.setItem("loggedIn", "true");
-    checkLoginStatus();
-}
-
-function logout() {
-    localStorage.removeItem("loggedIn");
-    checkLoginStatus();
-    window.location.href = "index.html";
-}
-
-document.addEventListener("DOMContentLoaded", function () {
-    const urlInput = document.getElementById("url");
-    const shortenButton = document.getElementById("shorten");
-    const urlList = document.getElementById("url-list");
-    const message = document.getElementById("message");
-    const userEmail = document.getElementById("user-email");
-    const logoutButton = document.getElementById("logout");
-    const yearSpan = document.getElementById("year");
-    yearSpan.textContent = new Date().getFullYear();
-
-    const storedUser = localStorage.getItem("user");
-    if (!storedUser) {
-        window.location.href = "/login";
-    } else {
-        userEmail.textContent = JSON.parse(storedUser).email;
-    }
-
-    logoutButton.addEventListener("click", () => {
-        localStorage.removeItem("user");
-        window.location.href = "/";
-    });
-
-    shortenButton.addEventListener("click", () => {
-        const url = urlInput.value.trim();
-        if (!url) {
-            message.textContent = "Please enter a URL.";
-            return;
+        if (document.getElementById("dashboard")) {
+            document.getElementById("dashboard").classList.add("hidden");
         }
+    }
+}
 
-        const shortId = Math.random().toString(36).substring(2, 8);
-        const newUrl = {
-            id: shortId,
-            originalUrl: url,
-            shortUrl: `short.link/${shortId}`,
-            clicks: 0,
-        };
-
-        let urls = JSON.parse(localStorage.getItem("shortenedUrls")) || [];
-        urls.unshift(newUrl);
-        localStorage.setItem("shortenedUrls", JSON.stringify(urls));
-        renderUrls();
-        urlInput.value = "";
-        message.textContent = "URL shortened successfully!";
-    });
-
-    function renderUrls() {
-        urlList.innerHTML = "";
-        const urls = JSON.parse(localStorage.getItem("shortenedUrls")) || [];
-        urls.forEach((url) => {
-            const row = document.createElement("tr");
-            row.innerHTML = `
-                <td><a href="${url.originalUrl}" target="_blank">${url.originalUrl}</a></td>
-                <td>${url.shortUrl}</td>
-                <td>${url.clicks}</td>
-                <td><button onclick="copyToClipboard('${url.shortUrl}')">Copy</button></td>
-            `;
-            urlList.appendChild(row);
+// Setup event listeners for buttons
+function setupEventListeners() {
+    // Registration form submission
+    const registerForm = document.querySelector(".register-form");
+    if (registerForm) {
+        registerForm.addEventListener("submit", function (e) {
+            e.preventDefault();
+            registerUser();
         });
     }
 
-    window.copyToClipboard = function (text) {
-        navigator.clipboard.writeText(text);
-        message.textContent = "Copied to clipboard!";
-        setTimeout(() => (message.textContent = ""), 2000);
-    };
+    // Login form submission
+    const loginForm = document.querySelector(".login-form");
+    if (loginForm) {
+        loginForm.addEventListener("submit", function (e) {
+            e.preventDefault();
+            loginUser();
+        });
+    }
 
-    renderUrls();
-});
+    // Shorten URL button
+    const shortenBtn = document.getElementById("shorten-btn");
+    if (shortenBtn) {
+        shortenBtn.addEventListener("click", shortenUrl);
+    }
+
+}
+
+// Get Started function
+function getStarted() {
+    const isLoggedIn = localStorage.getItem("loggedIn") === "true";
+
+    window.location.href = isLoggedIn ? "dashboard.html" : "login.html";
+}
+
+// Register user
+function registerUser() {
+    event.preventDefault(); // Prevents form from reloading the page
+
+    const name = document.querySelector(".register-form input[type='text']").value;
+    const email = document.querySelector(".register-form input[type='email']").value;
+    const password = document.querySelector(".register-form input[type='password']").value;
+    const confirmPassword = document.querySelector(".register-form #confirm-password").value;
+
+    // Password confirmation check
+    if (password !== confirmPassword) {
+        alert("Passwords do not match!");
+        return;
+    }
+
+    fetch("http://localhost/shortener/Backend/register.php", {
+        method: "POST",
+        body: JSON.stringify({ name, email, password }),
+        headers: { "Content-Type": "application/json" }
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+        if (data.success) {
+            alert("Registration successful");
+        } else {
+            console.error("Server Error:", data);
+            alert("Error: " + (data.error || "Registration failed"));
+        }
+    })
+    .catch(error => console.error("Error:", error));
+}
+
+// Login user
+async function loginUser() {
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    if (!email || !password) {
+        alert("Please enter both email and password.");
+        return;
+    }
+
+    try {
+        fetch("http://localhost/shortener/Backend/login.php", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ email, password }),
+            mode: "cors" // Ensure CORS handling
+        });
+
+        const data = await response.json();
+        if (data.success) {
+            alert("Login Successful!");
+            window.location.href = "dashboard.html"; // Redirect after login
+        } else {
+            alert(data.error);
+        }
+    } catch (error) {
+        console.error("Login Error:", error);
+    }
+}
+
+// Logout
+function logout() {
+    localStorage.removeItem("loggedIn");
+    fetch("backend/logout.php", { method: "POST" })
+        .then(() => {
+            window.location.href = "index.html";
+        });
+}
+
+// Shorten URL
+function shortenUrl() {
+    const longUrl = document.getElementById("long-url").value;
+    if (!longUrl.trim()) {
+        alert("Please enter a valid URL");
+        return;
+    }
+
+    fetch("backend/shorten.php", {
+        method: "POST",
+        body: JSON.stringify({ longUrl }),
+        headers: { "Content-Type": "application/json" }
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                addUrlToTable(data.longUrl, data.shortUrl, data.clicks);
+                document.getElementById("long-url").value = "";
+            } else {
+                alert("Error: " + data.message);
+            }
+        });
+}
+
+// Add shortened URL to table
+function addUrlToTable(longUrl, shortUrl, clicks) {
+    const tbody = document.getElementById("url-list");
+
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+        <td><a href="${longUrl}" target="_blank">${longUrl}</a></td>
+        <td><a href="#" onclick="redirectTo('${shortUrl}', '${longUrl}')">${shortUrl}</a></td>
+        <td>${clicks}</td>
+        <td>
+            <button class="copy-btn" onclick="copyToClipboard('${shortUrl}')">📋 Copy</button>
+            <button class="delete-btn" onclick="deleteUrl('${shortUrl}', this)">🗑 Delete</button>
+        </td>
+    `;
+    tbody.appendChild(tr);
+}
+
+// Copy short URL to clipboard
+function copyToClipboard(text) {
+    navigator.clipboard.writeText(text).then(() => {
+        alert("Short URL copied to clipboard!");
+    });
+}
+
+// Redirect user and track clicks
+function redirectTo(shortUrl, longUrl) {
+    fetch(`backend/track.php?shortUrl=${shortUrl}`)
+        .then(() => {
+            window.open(longUrl, "_blank");
+        });
+}
+
+// Delete URL
+function deleteUrl(shortUrl, btn) {
+    fetch("backend/delete.php", {
+        method: "POST",
+        body: JSON.stringify({ shortUrl }),
+        headers: { "Content-Type": "application/json" }
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                btn.parentElement.parentElement.remove();
+            } else {
+                alert("Error: " + data.message);
+            }
+        });
+}
