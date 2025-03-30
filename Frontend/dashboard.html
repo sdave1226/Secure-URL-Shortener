@@ -13,10 +13,6 @@
         <div className="flex items-center gap-6 font-medium">
             <h1 className="text-xl font-bold" onclick="window.location.href='index.html'">Secure URL Shortener</h1>
         </div>
-        <div class="nav-links" id="nav-auth">
-            <button class="btn login" onclick="window.location.href='login.html'">Login</button>
-            <button class="btn register" onclick="window.location.href='register.html'">Register</button>
-        </div>
     </nav>
 
     <div class="dashboardcontainer">
@@ -29,7 +25,7 @@
                 <h4 align="left" class="dashh4">URL to Shorten</h4>
                 <div class="input-container">
                     <input class="dashinput" type="text" id="long-url" placeholder="https://example.com/very/long/url">
-                    <button class="dashbtn" id="shorten-btn">Shorten</button>
+                    <button class="dashbtn" id="shorten-btn" onclick="shortenUrl()">Shorten</button>
                 </div>
             </div>
     

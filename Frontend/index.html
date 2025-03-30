@@ -1,29 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Secure URL Shortener</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <!-- Navbar -->
     <nav class="navbar">
         <div className="flex items-center gap-6 font-medium">
             <h1 className="text-xl font-bold" onclick="window.location.href='index.html'">Secure URL Shortener</h1>
         </div>
-        <div class="nav-links" id="nav-auth">
-            <button class="btn login" onclick="window.location.href='login.html'">Login</button>
-            <button class="btn register" onclick="window.location.href='register.html'">Register</button>
-        </div>
     </nav>
 
     <!-- Landing Page (Before Login) -->
-    <header class="hero" >
+    <header class="hero">
         <h1>Shorten your links, expand your reach</h1>
         <p>Create short, memorable links in seconds. Track clicks and manage your links all in one place.</p>
         <div class="button-group">
-            <button class="btn primary" onclick="">Get Started</button>
+            <button class="btn primary" onclick="window.location.href='dashboard.html'">Get Started</button>
         </div>
     </header>
 
@@ -39,4 +37,5 @@
 
     <script src="script.js"></script>
 </body>
+
 </html>
